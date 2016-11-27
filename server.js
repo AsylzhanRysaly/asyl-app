@@ -8,7 +8,7 @@ var PORT = process.env.PORT || 3000;
 
 var cars = [];
 app.get('/', function(req, res){
-  res.send('Қош келдіңіз!!! \n GET сұраныс жасау үшін');
+  res.send('Қош келдіңіз!!! \n GET сұраныс жасау үшін /cars \n POST  жасау үшін /cars  \n DELETE сұраныс жасау үшін /cars');
 });
 
 app.get('/cars', function(req, res) {
