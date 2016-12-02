@@ -51,14 +51,19 @@ app.get('/cars', function(req, res) {
 });
 
 app.get('/cars/:id', function(req, res) {
-  if(cars.length <= req.params.id || req.params.id < 0) {
-    res.statusCode = 404;
-    return res.send('Error 404: No cars found');
-  }
+	var CarId = parseInt(req.params.id, 10);
 
-  var c = cars[req.params.id];
-  res.json(c);
+	db.car.findById(carId).then(function (car) {
+		if (!!car) {
+			res.json(car.toJSON());
+		} else {
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 });
+
 app.use(bodyParser.json());
 
 // POST /cars
@@ -101,7 +106,7 @@ app.delete('/cars/:id', function(req, res) {
   res.json(true);
  
 });
-
+/*
 app.put('/cars/:id', function(req, res){
 	var carId = parseInt(req.params.id, 10);
 	var matchedCar = _.findWhere(cars, {id: CarId});
@@ -142,7 +147,7 @@ app.put('/cars/:id', function(req, res){
 	matchedCar = _.extend(matchedCar, validAttributes);
 	res.json(matchedCar);
 });
-
+*/
 
 /*
 app.listen(PORT, function(){
